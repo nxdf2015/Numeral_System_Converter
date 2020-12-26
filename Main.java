@@ -115,43 +115,57 @@ public class Main {
 
 
         System.out.println("Input:");
-        int sourceRadix = Integer.parseInt(scanner.nextLine());
-
-        String  number = scanner.nextLine();
-        int targetRadix = Integer.parseInt(scanner.nextLine());
-        // get integer and fractional part of the number
         String result = "";
-        if (sourceRadix > 1 && targetRadix > 1) {
-            String integerValue = "";
-            String fractionalValue = "";
+        int sourceRadix = 0;
+        int targetRadix = 0;
+        String number = "";
 
-            try {
-                String[] fraction = number.split("\\.");
-                integerValue = fraction[0];
-                fractionalValue = fraction[1];
-            } catch (Exception e) {
-                integerValue = number;
-                fractionalValue = "";
-            }
-            //convert integer part from sourceRadix to decimal
-            result = convert(integerValue,sourceRadix,targetRadix);
+        try {
+            sourceRadix = Integer.parseInt(scanner.nextLine());
+            number = scanner.nextLine();
+            targetRadix = Integer.parseInt(scanner.nextLine());
 
-            //convert fractional part
-            String fractionalResult = "";
-            if (fractionalValue.isEmpty()) {
-                fractionalResult  = "";
-            } else {
-                double fraction10 = fractionToDecimal(fractionalValue, sourceRadix);
-                fractionalResult = fraction10ToRadix(fraction10,targetRadix);
-            }
-
-
-            if (!fractionalValue.isEmpty()){
-                result += "." + fractionalResult;
-            }
-        } else {
-            result = convert(number,sourceRadix, targetRadix);
         }
+        catch (Exception e){
+
+        }
+
+        // get integer and fractional part of the number
+
+            if (sourceRadix < 1 || targetRadix < 1 || sourceRadix > 36 || targetRadix > 36) {
+                result = "error";
+            } else if (sourceRadix > 1 && targetRadix > 1) {
+                String integerValue = "";
+                String fractionalValue = "";
+
+                try {
+                    String[] fraction = number.split("\\.");
+                    integerValue = fraction[0];
+                    fractionalValue = fraction[1];
+                } catch (Exception e) {
+                    integerValue = number;
+                    fractionalValue = "";
+                }
+                //convert integer part from sourceRadix to decimal
+                result = convert(integerValue, sourceRadix, targetRadix);
+
+                //convert fractional part
+                String fractionalResult = "";
+                if (fractionalValue.isEmpty()) {
+                    fractionalResult = "";
+                } else {
+                    double fraction10 = fractionToDecimal(fractionalValue, sourceRadix);
+                    fractionalResult = fraction10ToRadix(fraction10, targetRadix);
+                }
+
+
+                if (!fractionalValue.isEmpty()) {
+                    result += "." + fractionalResult;
+                }
+            }
+              else {
+                result = convert(number, sourceRadix, targetRadix);
+            }
 
 
 
