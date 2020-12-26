@@ -41,12 +41,28 @@ public class Main {
 
 
         System.out.println("Input:");
-        int number = scanner.nextInt();
-        int radix = scanner.nextInt();
+        int sourceRadix = Integer.parseInt(scanner.nextLine());
+
+        String  number = scanner.nextLine();
+        int targetRadix = Integer.parseInt(scanner.nextLine());
+        String output = "";
+
+        int value = 0;
+        if (sourceRadix == 1) {
+           value   =  number.length();
+        } else {
+            value = Integer.parseInt(number, sourceRadix);
+        }
+
+        if(targetRadix == 1){
+              output = "1".repeat(value);
+        } else {
+            output = Integer.toString(value, targetRadix);
+        }
 
 
         System.out.println("Output:");
-        System.out.println(convert(number,radix));
+        System.out.println(output);
 
 
     }
